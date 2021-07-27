@@ -5,18 +5,21 @@ enum TagType {
   Header3,
   HorizontalRule,
 }
+
 interface IMarkdownDocument {
-  Add(...content: string[]) : void;
+  Add(...content: string[]): void;
   Get(): string;
 }
 
 class MarkdownDocument implements IMarkdownDocument {
   private content: string = "";
+
   Add(...content: string[]): void {
-    content.forEach(element => {
+    content.forEach((element) => {
       this.content += element;
     });
   }
+
   Get(): string {
     return this.content;
   }
@@ -37,7 +40,7 @@ class TagTypeToHtml {
     this.tagType.set(TagType.HorizontalRule, "hr");
   }
 
-  private GetTag(tagType: TagType, openingTagPattern: string) : string {
+  private GetTag(tagType: TagType, openingTagPattern: string): string {
     let tag = this.tagType.get(tagType);
     if (tag !== null) {
       return `${openingTagPattern}${tag}>`;
@@ -52,7 +55,6 @@ class TagTypeToHtml {
   public ClosingTag(tagType: TagType): string {
     return this.GetTag(tagType, `</`);
   }
-
 }
 
 class HtmlHandler {
